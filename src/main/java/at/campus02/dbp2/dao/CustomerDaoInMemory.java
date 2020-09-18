@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerDaoInMemory implements CustomerDao{
-    private Map<String, Customer> cache = new HashMap<>();
+    private final Map<String, Customer> cache = new HashMap<>();// the reference cannot be changed but the contents can be changed
 
     @Override
     public void create(Customer customer) {
@@ -27,11 +27,17 @@ public class CustomerDaoInMemory implements CustomerDao{
 
     @Override
     public void update(Customer customer) {
-
+        Customer fromCache = cache.get(customer.getLastName());
+        if(fromCache==null)
+            throw new IllegalStateException("Customer does not exist in the database!");
+        fromCache.setFirstName(customer.getFirstName());
+        fromCache.setAge(customer.getAge());
     }
 
     @Override
     public void delete(Customer customer) {
-
+        if(!cache.containsKey(customer.getLastName()))
+            throw new IllegalStateException("Customer does not exist in the database!");
+        cache.remove(customer.getLastName());
     }
 }

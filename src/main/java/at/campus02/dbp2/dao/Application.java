@@ -10,7 +10,12 @@ public class Application {
         customer1.setAge(30);
 
         // Data Access Object holen - from where?
-        CustomerDao dao = new CustomerDaoInMemory();
+
+        //In Memory Implementation
+        //CustomerDao dao = new CustomerDaoInMemory();
+
+        //JDBC Implementation
+        CustomerDao dao = new CustomerDaoJdbc("jdbc:derby:database;create = true");
 
         //1. Create
         dao.create(customer1);
@@ -23,6 +28,7 @@ public class Application {
         //3. Update and read again
         customer1.setFirstName("Freddy");
         log("Kontrolle : " + dao.read(customer1.getLastName()));
+        dao.update(customer1);
         fromDB = dao.read(customer1.getLastName());
         log("Updated customer1 in the database : " + fromDB);
 
