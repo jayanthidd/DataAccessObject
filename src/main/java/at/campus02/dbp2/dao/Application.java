@@ -15,7 +15,10 @@ public class Application {
         //CustomerDao dao = new CustomerDaoInMemory();
 
         //JDBC Implementation
-        CustomerDao dao = new CustomerDaoJdbc("jdbc:derby:database;create = true");
+        //CustomerDao dao = new CustomerDaoJdbc("jdbc:derby:database;create = true");
+
+        //JPA Implementation
+        CustomerDao dao = new CustomerDaoJpa();
 
         //1. Create
         dao.create(customer1);
