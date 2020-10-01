@@ -1,5 +1,6 @@
 package at.campus02.dbp2.dao;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,15 +9,15 @@ public class Customer {
 
     @Id
     private String lastName;
+    @Basic // this is the default annotation
     private String firstName;
     private Integer age;
 
-    // default constructor is enough for JPA
-
+    // default constructor is required for JPA
     public Customer() {
     }
 
-    //a help constructor for cloning
+    //a help constructor for cloning so that the actual reference of the object is not automatically changed
     public Customer(Customer toClone){
         lastName = toClone.getLastName();
         firstName = toClone.getFirstName();
